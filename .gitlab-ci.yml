@@ -1,0 +1,27 @@
+stages:
+    - build
+    - test
+
+build:
+    stage: build
+    script:
+        - echo "Building"
+        - mkdir build
+        - touch build/test.txt
+        - echo "Bienvenidos!" >> build/test.txt 
+    artifacts:
+        paths:
+            - build/
+
+hello:
+    image: python:latest
+    stage: build 
+    script:
+        - python hello.py
+
+test:
+    stage: test
+    script:
+        - echo "Testing"
+        - test -f "build/test.txt"
+        - cat build/test.txt
